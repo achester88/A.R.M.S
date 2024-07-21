@@ -17,23 +17,7 @@ fn main() {
             // initialize your app here instead of sleeping :)
             println!("Initializing...");
             std::thread::sleep(std::time::Duration::from_secs(2));
-            /*
-            println!("{:?}", dir);
-            fs::create_dir_all("/test/");
-            match fs::read_to_string(dir.join("/config.json")) {
-                Ok(val) => {
-                   println!("config: {:?}", val);
-                },
-                Err(_) => {
-                    match &std::fs::write(dir.join("/config.json"), "Lorem ipsum") {
-                        Err(mes) => println!("ERROR: {:?}", mes),
-                        _ => {}
-                        }
 
-                    //let mut file = File::create("foo.txt");
-                    //file.expect("REASON").write_all(b"Hello, world!");
-                }
-            }*/
             println!("Done initializing.");
 
             // After it's done, close the splashscreen and display the main window

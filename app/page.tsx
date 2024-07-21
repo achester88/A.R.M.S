@@ -5,10 +5,13 @@ import { invoke } from '@tauri-apps/api/tauri'
 import {exists, BaseDirectory, createDir, writeTextFile} from '@tauri-apps/api/fs';
 import Database from "tauri-plugin-sql-api";
 import { getVersion } from '@tauri-apps/api/app';
+import { emit, listen } from '@tauri-apps/api/event'
 
 import Greet from './greet'
 import Login from './login'
-import {useEffect} from "react";
+import Dashboard from './dashboard'
+
+import {useEffect, useState} from "react";
 
 async function init() {
     const Version = await getVersion();
@@ -35,13 +38,33 @@ async function init() {
 }
 
 export default function Home() {
+    const [page, setPage] = useState('Login');
+    const [user, setUser] = useState('');
+
+    const unlisten = listen('login', (event: any) => {
+        // event.event is the event name (useful if you want to use a single callback fn for multiple event types)
+        // event.payload is the payload object
+        console.log(event.payload);
+        setUser(event.payload.user);
+        setPage("Main");
+    })
+
     useEffect(()=>{
         init();
     }, [])
 
-  return (
-    <main>
-        <Login />
-    </main>
-  );
+    if (page == "Login") {
+        return (
+            <main>
+                <Login />
+            </main>
+        );
+    } else {
+        return (
+            <main>
+                <Dashboard user={user}/>
+            </main>
+        );
+    }
+
 }
