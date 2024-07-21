@@ -12,6 +12,7 @@ import Login from './login'
 import Dashboard from './dashboard'
 import Settings from './settings'
 import Members from './members'
+import AddMember from './addmembers'
 
 import {useEffect, useState} from "react";
 
@@ -87,6 +88,8 @@ export default function Home() {
         return <Settings user={user}/>;
     } else if (page == "Members") {
         return <Members user={user}/>;
+    } else if (page == "AddMember") {
+        return <AddMember user={user}/>;
     } else {
         return <Dashboard user={user}/>;
     }

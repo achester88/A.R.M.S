@@ -13,17 +13,19 @@ export default function Members(props: {user: string}) {
             Members
         </div>
         <div className="m-4">
-            <button className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            <button data-modal-target="static-modal" data-modal-toggle="static-modal"
+                    className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
-
+                        emit('setPage', {page: "AddMember"})
                     }}>Add Member
             </button>
+
             <div className="my-4">
                 <Table/>
             </div>
         </div>
-    </Frame>
-;
+
+    </Frame>;
 }
 
 function Table() {
@@ -31,7 +33,7 @@ function Table() {
 
     Database.load("sqlite:database.db").then((db) => {
         db.select("SELECT * FROM members").then((members) => {
-            console.log(members);
+            console.log("mem:", members);
         })
     });
 
@@ -126,18 +128,3 @@ function TableRow() {
         </tr>
     );
 }
-
-/* for each member
-CREATE TABLE shooter_ (
-round_id text NOT NULL PRIMARY KEY UNIQUE,
-data text,
-prone_timelimit int,
-kneeling_timelimit int,
-standing_timelimit int,
-prone_score int,
-kneeling_score int,
-standing_score int,
-total_time int,
-total_socre int
-)
- */
