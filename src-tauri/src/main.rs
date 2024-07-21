@@ -3,6 +3,8 @@
 
 use tauri::Manager;
 use std::fs;
+use std::fs::File;
+use std::io::prelude::*;
 
 fn main() {
   tauri::Builder::default()
@@ -10,23 +12,28 @@ fn main() {
           let splashscreen_window = app.get_window("splashscreen").unwrap();
           let main_window = app.get_window("main").unwrap();
           // we perform the initialization code on a new task so the app doesn't freeze
-          let dir = app.path_resolver().app_data_dir().expect("couldn't resolve app data dir");
+          let dir = app.path_resolver().app_dir().expect("couldn't resolve app data dir");
           tauri::async_runtime::spawn(async move {
             // initialize your app here instead of sleeping :)
             println!("Initializing...");
             std::thread::sleep(std::time::Duration::from_secs(2));
+            /*
             println!("{:?}", dir);
+            fs::create_dir_all("/test/");
             match fs::read_to_string(dir.join("/config.json")) {
                 Ok(val) => {
                    println!("config: {:?}", val);
                 },
                 Err(_) => {
-                    match fs::write(dir.join("/config.json"), b"Lorem ipsum") {
+                    match &std::fs::write(dir.join("/config.json"), "Lorem ipsum") {
                         Err(mes) => println!("ERROR: {:?}", mes),
                         _ => {}
                         }
+
+                    //let mut file = File::create("foo.txt");
+                    //file.expect("REASON").write_all(b"Hello, world!");
                 }
-            }
+            }*/
             println!("Done initializing.");
 
             // After it's done, close the splashscreen and display the main window

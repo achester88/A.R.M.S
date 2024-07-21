@@ -12,7 +12,20 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "fs": {
+        "all": true,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "exists": true,
+        "scope": ["**", "$APP", "$APP/**", "$CACHE", "$CACHE/**", "$CONFIG", "$CONFIG/**", "$LOG", "$LOG/**", "$HOME/**"]
+      }
     },
     "bundle": {
       "active": true,
@@ -29,7 +42,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.achester88.arms",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
