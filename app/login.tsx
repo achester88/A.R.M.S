@@ -1,20 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri'
-import { emit, listen } from '@tauri-apps/api/event'
+import { emit } from '@tauri-apps/api/event'
 import Database from "tauri-plugin-sql-api";
-
-async function create_test_table() {
-    console.log(Database);
-    const db = await Database.load("sqlite:test.db");
-    const result = await db.execute(
-        "CREATE TABLE place (country text, city text NULL, telcode integer)",
-    );
-    //SELECT * FROM Customers
-    // WHERE CustomerID=1; 
-    console.log(result);
-}
 
 export default function Greet() {
 

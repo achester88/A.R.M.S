@@ -10,6 +10,8 @@ import { emit, listen } from '@tauri-apps/api/event'
 import Greet from './greet'
 import Login from './login'
 import Dashboard from './dashboard'
+import Settings from './settings'
+import Members from './members'
 
 import {useEffect, useState} from "react";
 
@@ -41,7 +43,7 @@ export default function Home() {
     const [page, setPage] = useState('Login');
     const [user, setUser] = useState('');
 
-    const unlisten = listen('login', (event: any) => {
+    const unlistenLogin = listen('login', (event: any) => {
         // event.event is the event name (useful if you want to use a single callback fn for multiple event types)
         // event.payload is the payload object
         console.log(event.payload);
@@ -49,22 +51,25 @@ export default function Home() {
         setPage("Main");
     })
 
+    const unlistenSetPage = listen('setPage', (event: any) => {
+        // event.event is the event name (useful if you want to use a single callback fn for multiple event types)
+        // event.payload is the payload object
+        console.log(event.payload);
+        setPage(event.payload.page);
+    })
+
     useEffect(()=>{
         init();
     }, [])
 
     if (page == "Login") {
-        return (
-            <main>
-                <Login />
-            </main>
-        );
+        return <Login />;
+    } else if (page == "Settings") {
+        return <Settings user={user}/>;
+    } else if (page == "Members") {
+        return <Members user={user}/>;
     } else {
-        return (
-            <main>
-                <Dashboard user={user}/>
-            </main>
-        );
+        return <Dashboard user={user}/>;
     }
 
 }
