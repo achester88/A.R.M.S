@@ -36,6 +36,25 @@ async function init() {
         await db.execute(
             "INSERT INTO users VALUES ('admin', 'admin')",
         );
+
+        await db.execute(
+            "CREATE TABLE members (\n" +
+            "id text NOT NULL PRIMARY KEY UNIQUE,\n" +
+            "name text,\n" +
+            "rifle_num int,\n" +
+            "rifle_description text,\n" +
+            "three_positions_high_score int,\n" +
+            "prone_high_score int,\n" +
+            "kneeling_high_score int,\n" +
+            "standing_high_score int,\n" +
+            "average_total int,\n" +
+            "average_prone int,\n" +
+            "average_kneeling int,\n" +
+            "average_standing int,\n" +
+            "attendance_rate real,\n" +
+            "minutes_shot int\n" +
+            ")",
+        );
     }
 }
 
