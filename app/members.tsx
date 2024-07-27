@@ -3,14 +3,14 @@
 import Sidebar, { SidebarItem } from "./components/sidebar"
 import {emit} from "@tauri-apps/api/event";
 import Frame from "@/app/frame";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Database from "tauri-plugin-sql-api";
 
 export default function Members(props: {user: string}) {
 
     return <Frame>
-        <div className="flex">
-            Members
+        <div className="flex items-center justify-center">
+            <h1 className="text-3xl font-extrabold">Members</h1>
         </div>
         <div className="m-4">
             <button data-modal-target="static-modal" data-modal-toggle="static-modal"
@@ -29,14 +29,24 @@ export default function Members(props: {user: string}) {
 }
 
 function Table() {
-    const [members, setMembers] = useState([]);
+    const [list, setList] = useState(<br/>);
 
-    Database.load("sqlite:database.db").then((db) => {
-        db.select("SELECT * FROM members").then((members) => {
-            console.log("mem:", members);
-        })
-    });
+    useEffect(()=> {
+        Database.load("sqlite:database.db").then((db) => {
+            db.select("SELECT * FROM members").then((members: any) => {
+                console.log("mem:", members);
+                let tempList: any = [];
+                //{name, rifle_num, high_score, prone, standing, kneeling, average, attendance_rate, total_min}
+                members.forEach((member: any) => {
+                    console.log(member);
+                    tempList.push(<TableRow key={member.id} data={member}/>);
+                });
 
+                setList(tempList);
+
+            })
+        });
+    }, []);
 
     return (
         <div>
@@ -79,8 +89,7 @@ function Table() {
                     </tr>
                     </thead>
                     <tbody>
-                    <TableRow/>
-                    <TableRow/>
+                    {list}
                     </tbody>
                 </table>
             </div>
@@ -90,36 +99,37 @@ function Table() {
     );
 }
 
-function TableRow() {
+function TableRow({data}: any) {
+
     return (
         <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <th scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Anthony Chester
+                {data.name}
             </th>
             <td className="px-6 py-4">
-                14
+                {data.rifle_num}
             </td>
             <td className="px-6 py-4">
-                250
+                {data.three_positions_high_score}
             </td>
             <td className="px-6 py-4">
-                95
+                {data.prone_high_score}
             </td>
             <td className="px-6 py-4">
-                70
+                {data.standing_high_score}
             </td>
             <td className="px-6 py-4">
-                70
+                {data.kneeling_high_score}
             </td>
             <td className="px-6 py-4">
-                225
+                {data.average_total}
             </td>
             <td className="px-6 py-4">
-                89%
+                {data.attendance_rate}
             </td>
             <td className="px-6 py-4">
-                1000
+                {data.minutes_shot}
             </td>
             <td className="px-6 py-4 text-right">
                 <a href="#"

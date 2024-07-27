@@ -17,7 +17,7 @@ export default function Frame({children}: any) {
                 }}/>
             </Sidebar>
 
-    <main>{children}</main>
+    <main className="grow">{children}</main>
         </div>
 )
     ;

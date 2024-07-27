@@ -52,6 +52,11 @@ export default function AddMember(props: {user: string}) {
                     <div className="flex items-center justify-center">
                         <h1 className="text-3xl font-extrabold">Add Member</h1>
                     </div>
+
+                    <button className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute top-1.5 right-1.5"
+                            onClick={() => {emit('setPage', {page: "Members"});}}>X
+                    </button>
+
                     <div className="h-10"/>
                     <div className="inline-flex ">
                         <h2 className="p-3">Name:</h2>

@@ -11,7 +11,7 @@ export default function Sidebar({ children }: any, props: {user: string}) {
 
 
 
-    useEffect(()=>{
+    useEffect(()=> {
         getVersion().then((ver) => {
             setVersion(ver);
         })
