@@ -6,7 +6,7 @@ A.R.M.S is an open source project for managing air rifles teams, with a focus on
 
 ## Installation
 
-Pre-Builds are available for Windows, Mac, and Linux [here]()
+Pre-Builds are available for Windows, Mac, and Linux [here](https://github.com/achester88/A.R.M.S/releases)
 
 
 ### Building From Source
@@ -36,7 +36,7 @@ pnpm tauri build
 
 When A.R.M.S is first booted up it will have the default login of user: admin, pass: admin
 
-For more information please check out the manual [here]()
+For more information please check out the manual
 
 ## Features
 - [x] Member Tracking
